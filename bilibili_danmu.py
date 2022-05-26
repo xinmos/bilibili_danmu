@@ -39,9 +39,10 @@ async def hello():
         while True:
             try:
                 end_time = int(time.time())
-                if end_time - start_time == 30:
+                if end_time - start_time == 29:
                     beat = struct.pack(">IHHII", 0, 16, 1, 2, 1)
                     await ws.send(beat)
+                    start_time = end_time
                 res = await ws.recv()
                 response = struct.unpack(f'>IHHII{len(res) - 16}s', res)
                 if response[3] == 5:
